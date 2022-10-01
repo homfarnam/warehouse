@@ -1,0 +1,11 @@
+body {
+  @apply bg-gradient-to-r from-cyan-500 to-blue-500;
+}
+
+.products {
+  @apply flex flex-col p-5 h-screen;
+
+  &--title {
+    @apply flex justify-center w-full mx-auto text-4xl font-bold text-red-300;
+  }
+}
