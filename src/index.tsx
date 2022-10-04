@@ -4,11 +4,17 @@ import "./styles/main.scss"
 import App from "./App"
 import React from "react"
 import { BrowserRouter } from "react-router-dom"
+import "react-toastify/dist/ReactToastify.css"
+import { ToastContainer } from "react-toastify"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <App />
+    <ToastContainer
+      newestOnTop
+      draggable
+      autoClose={2500}
+      hideProgressBar={false}
+    />
+  </BrowserRouter>
 )
