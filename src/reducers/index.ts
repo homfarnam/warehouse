@@ -1,4 +1,5 @@
-import { productReducer } from "./productReducer"
+import { productsReducer } from "./productsReducer"
 import { articleReducer } from "./articleReducer"
+import { salesReducer } from "./salesReducer"
 
-export { productReducer, articleReducer }
+export { productsReducer, articleReducer, salesReducer }
