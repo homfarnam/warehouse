@@ -22,7 +22,7 @@ export type ReducerReturnType = (
   action: ReducerActionType
 ) => ReducerStateType
 
-const productReducer = (
+const productsReducer = (
   state = productsInitialState,
   action: ReducerActionType
 ) => {
@@ -38,4 +38,4 @@ const productReducer = (
   }
 }
 
-export { productReducer }
+export { productsReducer }
