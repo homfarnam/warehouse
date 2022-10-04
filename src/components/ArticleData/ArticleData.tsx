@@ -1,47 +1,20 @@
-import React, { useEffect, useReducer, useState } from "react"
 import { ClipLoader } from "react-spinners"
-import { ArticlesApi } from "../../api"
-import { articleReducer } from "../../reducers"
-import { articleInitialState } from "../../reducers/articleReducer"
-import { ArticlesType } from "../../types/api.types"
-import ErrorDisplay from "../Shared/ErrorDisplay/ErrorDisplay"
+import { useArticle } from "../hooks"
 
 interface ArticleDataProps {
-  data: ArticlesType
+  id: string
 }
 
-const ArticleData = ({ data }: ArticleDataProps) => {
-  const [{ article, loading, error }, articleDispatch] = useReducer(
-    articleReducer,
-    articleInitialState
-  )
-
-  useEffect(() => {
-    const fetchArticle = async () => {
-      await articleDispatch({ type: "request" })
-      ArticlesApi.getOneArticle(data.id)
-        .then((res) => {
-          articleDispatch({ type: "success", results: res })
-        })
-        .catch((err) => {
-          console.log(err)
-          articleDispatch({ type: "failure", error: err.message })
-        })
-    }
-    if (data && data.id) {
-      fetchArticle()
-    }
-  }, [data])
+const ArticleData = ({ id }: ArticleDataProps) => {
+  const { article, articleLoading } = useArticle(id)
 
   return (
     <div className="px-3">
-      {error && !article ? (
-        <ErrorDisplay text={error} />
-      ) : loading ? (
+      {articleLoading ? (
         <ClipLoader
           className="my-10"
           color="black"
-          loading={loading}
+          loading={articleLoading}
           size={20}
         />
       ) : (
@@ -49,12 +22,13 @@ const ArticleData = ({ data }: ArticleDataProps) => {
           <div className="flex items-center justify-between w-1/2">
             <li>{article.name}</li>
             <p>
-              <span>Amount:</span>
+              <span>Amount in stock:</span>
               <span>{article.amountInStock}</span>
             </p>
           </div>
         )
       )}
+
       <span></span>
     </div>
   )
