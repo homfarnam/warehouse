@@ -1,49 +1,26 @@
-import { useEffect, useReducer, useState } from "react"
 import { ClipLoader } from "react-spinners"
-import { ProductApi } from "../api"
-import { ArticleData, ErrorDisplay, Layout } from "../components"
-import { productReducer } from "../reducers"
-import { productsInitialState } from "../reducers/productReducer"
-import { ProductsType } from "../types/api.types"
+import { ArticleData, Layout } from "../components"
+import { useProducts } from "../components/hooks"
 
-const Prodcuts = () => {
-  const [{ products, loading, error }, productDispatch] = useReducer(
-    productReducer,
-    productsInitialState
-  )
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      productDispatch({ type: "request" })
-      await ProductApi.getProducts()
-        .then((res) => {
-          console.log({ res })
-
-          productDispatch({ type: "success", results: res })
-        })
-        .catch((err) => {
-          console.log(err)
-
-          productDispatch({ type: "failure", error: err.message })
-        })
-    }
-    fetchProducts()
-  }, [])
+const Products = () => {
+  const { products, productsLoading } = useProducts()
 
   return (
     <Layout>
       <div className="products">
         <section className="flex flex-col w-full h-full">
           <h1 className="products--title">Products</h1>
-
-          <div className="w-1/2 mx-auto my-10 space-y-3">
-            {error ? (
-              <ErrorDisplay text={error} />
-            ) : loading ? (
+          <div className="w-1/2 mx-auto my-10">
+            <p className="text-2xl font-medium text-center">
+              You can find products data here.
+            </p>
+          </div>
+          <div className="w-4/12 mx-auto my-10 space-y-3">
+            {productsLoading ? (
               <ClipLoader
                 className="flex items-center justify-center w-full my-10"
                 color="black"
-                loading={loading}
+                loading={productsLoading}
                 size={20}
               />
             ) : (
@@ -54,8 +31,9 @@ const Prodcuts = () => {
                     <h3>{product.name}</h3>
 
                     {product.articles &&
+                      product.articles.length > 0 &&
                       product.articles.map((item) => (
-                        <ArticleData key={item.id} data={item} />
+                        <ArticleData key={item.id} id={item.id} />
                       ))}
                   </div>
                 )
@@ -68,4 +46,4 @@ const Prodcuts = () => {
   )
 }
 
-export default Prodcuts
+export default Products
