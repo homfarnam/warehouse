@@ -17,16 +17,16 @@ const useProducts = () => {
   }
 
   const getProducts = async () => {
-    productDispatch({ type: "request", loading: true })
+    productDispatch({ type: "request" })
     try {
-      const data = await ProductApi.getProducts()
+      const data = await ProductApi.getProducts<ProductsType[]>()
       productDispatch({
         type: "success",
-        results: data as ProductsType[],
+        results: data,
       })
     } catch (err) {
       console.log(typeof err)
-      productDispatch({ type: "request", loading: false })
+      productDispatch({ type: "request" })
 
       if (axios.isAxiosError(err)) {
         productDispatch({ type: "failure", error: err.message })
