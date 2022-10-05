@@ -4,7 +4,7 @@ import { ProductsType } from "../types/api.types"
 
 // Get all products
 // Lists the entire product collection.
-const getProducts = async () => {
+const getProducts = async <T>(): Promise<T> => {
   return await warehouseAPI.get("/products/", globalConfig).then((response) => {
     return response.data
   })
@@ -22,7 +22,7 @@ const postProduct = async (data: Omit<ProductsType, "id">) => {
 
 // GET /products/:id
 // Gets a product by id.
-const getOneProduct = async (id: string) => {
+const getOneProduct = async <T>(id: string): Promise<T> => {
   return await warehouseAPI
     .get(`/products/${id}`, globalConfig)
     .then((response) => {

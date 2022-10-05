@@ -4,7 +4,7 @@ import { SalesType } from "../types/api.types"
 // GET all sales
 // Lists the entire sale collection.
 
-const getSales = async () => {
+const getSales = async <T>(): Promise<T> => {
   return await warehouseAPI.get("/sales/", globalConfig).then((response) => {
     return response.data
   })
@@ -37,7 +37,7 @@ const postSale = async ({
 
 // GET /sales/:id
 // Gets a sale by id.
-const getOneSale = async (id: string) => {
+const getOneSale = async <T>(id: string): Promise<T> => {
   return await warehouseAPI
     .get(`/sales/${id}`, globalConfig)
     .then((response) => {

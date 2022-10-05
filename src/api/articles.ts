@@ -3,7 +3,7 @@ import { ArticlesType } from "../types/api.types"
 
 // Get all articles
 // Lists the entire article collection.
-const getArticles = async () => {
+const getArticles = async <T>(): Promise<T> => {
   return await warehouseAPI.get("/articles/", globalConfig).then((response) => {
     return response.data
   })
@@ -30,7 +30,7 @@ const postArticle = async ({
 }
 
 // GET /articles/:id - Gets an article by id.
-const getOneArticle = async (id: string) => {
+const getOneArticle = async <T>(id: string): Promise<T> => {
   return await warehouseAPI
     .get(`/articles/${id}`, globalConfig)
     .then((response) => {
