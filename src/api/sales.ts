@@ -11,14 +11,25 @@ const getSales = async () => {
 }
 
 interface postSaleType {
-  data: Omit<SalesType, "id" | "createdAt">
+  productId: string
+  amountSold: number
 }
 
 // Post a sale
 // Creates a new sale.
-const postSale = async (data: postSaleType): Promise<SalesType> => {
+const postSale = async ({
+  productId,
+  amountSold,
+}: postSaleType): Promise<SalesType> => {
   return await warehouseAPI
-    .post("/sales/", data, globalConfig)
+    .post(
+      "/sales/",
+      {
+        productId,
+        amountSold,
+      },
+      globalConfig
+    )
     .then((response) => {
       return response.data
     })
