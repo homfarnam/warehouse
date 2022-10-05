@@ -1,29 +1,29 @@
 import axios, { AxiosError } from "axios"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { ArticlesApi, warehouseAPI } from "../../api"
-import { ArticlesType } from "../../types/api.types"
+import { ProductApi, warehouseAPI } from "../api"
+import { ProductsType } from "../types/api.types"
 
-const useArticle = (articleId: string) => {
-  const [article, setArticle] = useState<ArticlesType>()
-  const [articleError, setArticleError] = useState<string>("")
-  const [articleLoading, setArticleLoading] = useState<boolean>(false)
+const useProduct = (productID: string) => {
+  const [product, setProduct] = useState<ProductsType>()
+  const [productError, setProductError] = useState<string>("")
+  const [productLoading, setProductLoading] = useState<boolean>(false)
 
   const refetchRequest = async (err: AxiosError) => {
     warehouseAPI(err.config)
   }
 
-  const getArticle = async (id: string) => {
-    setArticleLoading(true)
+  const getProduct = async (id: string) => {
+    setProductLoading(true)
     try {
-      const newData = await ArticlesApi.getOneArticle(id)
-      setArticle(newData as ArticlesType)
-      setArticleLoading(false)
+      const response = await ProductApi.getOneProduct(id)
+      setProduct(response as ProductsType)
+      setProductLoading(false)
     } catch (err) {
       console.log(err)
       if (axios.isAxiosError(err)) {
-        setArticleError(err.message)
-        setArticleLoading(false)
+        setProductError(err.message)
+        setProductLoading(false)
         const error = err
         toast.error(
           () => (
@@ -46,12 +46,16 @@ const useArticle = (articleId: string) => {
   }
 
   useEffect(() => {
-    if (articleId) {
-      getArticle(articleId)
+    if (productID) {
+      getProduct(productID)
     }
-  }, [articleId])
+  }, [productID])
 
-  return { article, articleError, articleLoading }
+  return {
+    product,
+    productError,
+    productLoading,
+  }
 }
 
-export default useArticle
+export default useProduct

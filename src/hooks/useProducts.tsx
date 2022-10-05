@@ -1,10 +1,10 @@
-import axios, { AxiosError } from "axios"
-import { useEffect, useReducer } from "react"
+import axios, { AxiosError, AxiosRequestConfig } from "axios"
+import { useEffect, useReducer, useRef } from "react"
 import { toast } from "react-toastify"
-import { ProductApi, warehouseAPI } from "../../api"
-import { productsReducer } from "../../reducers"
-import { productsInitialState } from "../../reducers/productsReducer"
-import { ProductsType } from "../../types/api.types"
+import { ProductApi, warehouseAPI } from "../api"
+import { productsReducer } from "../reducers"
+import { productsInitialState } from "../reducers/productsReducer"
+import { ProductsType } from "../types/api.types"
 
 const useProducts = () => {
   const [
@@ -17,6 +17,7 @@ const useProducts = () => {
   }
 
   const getProducts = async () => {
+    productDispatch({ type: "request", loading: true })
     try {
       const data = await ProductApi.getProducts()
       productDispatch({
@@ -25,6 +26,7 @@ const useProducts = () => {
       })
     } catch (err) {
       console.log(typeof err)
+      productDispatch({ type: "request", loading: false })
 
       if (axios.isAxiosError(err)) {
         productDispatch({ type: "failure", error: err.message })
