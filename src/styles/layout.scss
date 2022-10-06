@@ -5,7 +5,10 @@ body {
 .layout {
   @apply w-full h-screen;
 
-  nav {
-    @apply w-full h-[50px] flex items-center justify-center space-x-5 text-xl font-medium;
+  header {
+    @apply w-full flex items-center px-10;
+    nav {
+      @apply w-full h-[50px] flex items-center justify-center space-x-5 text-xl font-medium;
+    }
   }
 }
