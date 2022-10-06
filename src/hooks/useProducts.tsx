@@ -6,7 +6,7 @@ import { productsReducer } from "../reducers"
 import { productsInitialState } from "../reducers/productsReducer"
 import { ProductsType } from "../types/api.types"
 
-const useProducts = () => {
+const useProducts = (loadOnStart = true) => {
   const [
     { products, loading: productsLoading, error: _productsError },
     productDispatch,
@@ -52,13 +52,20 @@ const useProducts = () => {
     }
   }
 
-  useEffect(() => {
+  const productRequest = () => {
     getProducts()
+  }
+
+  useEffect(() => {
+    if (loadOnStart) {
+      getProducts()
+    }
   }, [])
 
   return {
     products,
     productsLoading,
+    productRequest,
   }
 }
 
