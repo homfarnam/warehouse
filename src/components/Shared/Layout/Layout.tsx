@@ -1,5 +1,7 @@
 import React, { CSSProperties } from "react"
 import { NavLink } from "react-router-dom"
+import { BsCart4 } from "react-icons/bs"
+import ShopCart from "../../ShopCart/ShopCart"
 
 interface LayoutProps {
   children: React.ReactNode
@@ -28,6 +30,7 @@ const Layout = ({ children }: LayoutProps) => {
             Sales
           </NavLink>
         </nav>
+        <ShopCart />
       </header>
       {children}
       <footer></footer>
