@@ -1,5 +1,5 @@
 import { ClipLoader } from "react-spinners"
-import { useArticle } from "../hooks"
+import { useArticle } from "../../hooks"
 
 interface ArticleDataProps {
   id: string

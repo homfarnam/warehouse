@@ -1,5 +1,5 @@
 import { Layout, Loader, ProductDetail } from "../components"
-import { useProducts } from "../components/hooks"
+import { useProducts } from "../hooks"
 
 const Products = () => {
   const { products, productsLoading } = useProducts()
