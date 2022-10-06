@@ -1,33 +1,9 @@
-import { useEffect, useReducer } from "react"
 import { ClipLoader } from "react-spinners"
-import { SalesApi } from "../api"
-import { ErrorDisplay, Layout, ProductData } from "../components"
-import { salesReducer } from "../reducers"
-import { salesInitialState } from "../reducers/salesReducer"
+import { Layout, ProductData } from "../components"
+import { useSales } from "../hooks"
 
 const Sales = () => {
-  const [{ sales, loading, error }, salesDispatch] = useReducer(
-    salesReducer,
-    salesInitialState
-  )
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      salesDispatch({ type: "request" })
-      await SalesApi.getSales()
-        .then((res) => {
-          console.log("sales: ", res)
-
-          salesDispatch({ type: "success", results: res })
-        })
-        .catch((err) => {
-          console.log(err)
-
-          salesDispatch({ type: "failure", error: err.message })
-        })
-    }
-    fetchProducts()
-  }, [])
+  const { sales, loading } = useSales()
 
   return (
     <Layout>
@@ -41,9 +17,7 @@ const Sales = () => {
             </p>
           </div>
           <div className="w-1/2 mx-auto my-10 space-y-3">
-            {error ? (
-              <ErrorDisplay text={error} />
-            ) : loading ? (
+            {loading ? (
               <ClipLoader
                 className="flex items-center justify-center w-full my-10"
                 color="black"
@@ -55,8 +29,17 @@ const Sales = () => {
               sales.map((sale) => {
                 return (
                   <div className="w-auto p-2 text-lg border" key={sale.id}>
-                    <h3>{sale.productId}</h3>
-                    <ProductData data={sale.productId} />
+                    <div className="flex items-center justify-between w-full">
+                      <h3>
+                        Product Id: {sale.productId.substring(0, 5)}...
+                        {sale.productId.substring(
+                          sale.productId.length - 5,
+                          sale.productId.length
+                        )}
+                      </h3>
+                      <span>Sold Amount: {sale.amountSold}</span>
+                    </div>
+                    <ProductData id={sale.productId} />
                   </div>
                 )
               })
