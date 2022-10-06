@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig } from "axios"
+import axios, { AxiosError } from "axios"
 import { useEffect, useReducer, useRef } from "react"
 import { toast } from "react-toastify"
 import { SalesApi, warehouseAPI } from "../api"
