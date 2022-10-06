@@ -5,7 +5,7 @@ interface ProductDataProps {
   id: string
 }
 
-const ProductsData = ({ id }: ProductDataProps) => {
+const ProductData = ({ id }: ProductDataProps) => {
   const { product, productLoading } = useProduct(id)
 
   return (
@@ -19,9 +19,8 @@ const ProductsData = ({ id }: ProductDataProps) => {
           </div>
         )
       )}
-      <span></span>
     </div>
   )
 }
 
-export default ProductsData
+export default ProductData
