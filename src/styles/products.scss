@@ -21,3 +21,21 @@
     @apply w-4/12 mx-auto my-10 space-y-3;
   }
 }
+
+.productCard {
+  @apply w-auto p-2 text-lg border rounded-xl;
+
+  &__header {
+    @apply flex items-center justify-between w-full;
+    &__cart {
+      @apply flex items-center;
+      &--amountInput {
+        @apply w-10 m-1 text-center rounded-lg;
+      }
+
+      &--icon {
+        @apply cursor-pointer;
+      }
+    }
+  }
+}
