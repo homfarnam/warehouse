@@ -1,14 +1,15 @@
+import { useContext } from "react"
 import { Layout, Loader, ProductDetail } from "../components"
-import { useProducts } from "../hooks"
+import { WarehouseContext } from "../context/context"
 
 const Products = () => {
-  const { products, productsLoading } = useProducts()
+  const { products, productsLoading } = useContext(WarehouseContext)
 
   return (
     <Layout>
       <div className="products">
         <section>
-          <h1 className="products--title">Products</h1>
+          <h2 className="products--title">Products</h2>
           <div className="products__description">
             <h3>You can find products data here.</h3>
           </div>
