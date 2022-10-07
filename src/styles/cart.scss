@@ -1,0 +1,97 @@
+.cart {
+  @apply flex flex-col p-5 h-screen;
+  &--title {
+    @apply flex justify-center w-full mx-auto text-4xl font-bold text-red-300;
+  }
+
+  &__box {
+    @apply w-full h-auto px-4 py-4 mx-auto mt-16 overflow-x-hidden overflow-y-hidden bg-gray-800;
+
+    @screen md {
+      @apply w-8/12 px-6 py-8;
+    }
+
+    @screen lg {
+      @apply w-1/2 px-8 py-14 h-auto;
+    }
+
+    &--title {
+      @apply pt-3 text-3xl font-black leading-10 text-white;
+
+      @screen lg {
+        @apply text-4xl;
+      }
+    }
+  }
+}
+
+.cartItem {
+  @apply py-8 border-t border-gray-50;
+
+  @screen md {
+    @apply flex py-10;
+  }
+
+  @screen lg {
+    @apply py-8;
+  }
+
+  &__container {
+    @apply flex flex-col justify-center;
+
+    @screen md {
+      @apply pl-3 w-8/12;
+    }
+
+    @screen 2xl {
+      @apply w-3/4;
+    }
+
+    &__details {
+      @apply flex items-center justify-between w-full pt-1;
+
+      p {
+        @apply text-base font-black text-white;
+      }
+
+      select {
+        @apply px-1 py-2 mr-6 border border-gray-200 bg-gray-800 text-white;
+
+        &:focus {
+          @apply outline-none;
+        }
+
+        &:hover {
+          @apply bg-gray-700;
+        }
+      }
+    }
+
+    &__buttonsBox {
+      @apply flex items-center justify-between w-full pt-5;
+
+      &--remove {
+        @apply flex items-center justify-start w-full;
+
+        button {
+          @apply text-base text-red-500 underline cursor-pointer;
+        }
+      }
+
+      &--register {
+        @apply flex items-center justify-start w-full;
+
+        button {
+          @apply px-10 py-3 mx-auto text-xs text-white rounded-full bg-gradient-to-tr from-blue-300 to-blue-500;
+
+          &:focus {
+            @apply outline-none;
+          }
+          &:hover {
+            @apply bg-indigo-700;
+          }
+        }
+      }
+    }
+  }
+}
