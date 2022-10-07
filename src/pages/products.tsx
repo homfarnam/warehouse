@@ -1,9 +1,8 @@
-import { useContext } from "react"
 import { Layout, Loader, ProductDetail } from "../components"
-import { WarehouseContext } from "../context/context"
+import { useProducts } from "../hooks"
 
 const Products = () => {
-  const { products, productsLoading } = useContext(WarehouseContext)
+  const { products, productsLoading, productRequest } = useProducts()
 
   return (
     <Layout>
