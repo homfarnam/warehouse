@@ -1,5 +1,5 @@
 .sales {
-  @apply flex flex-col p-5 h-screen;
+  @apply flex flex-col p-5 h-full;
   &__content {
     @apply flex flex-col w-full h-full;
     &--title {
@@ -15,11 +15,15 @@
     }
 
     &__data {
-      @apply w-1/2 mx-auto my-10 space-y-3;
+      @apply w-full mx-auto my-10 space-y-3;
     }
   }
 }
 
 .saleData {
-  @apply w-auto p-2 text-lg border;
+  @apply w-10/12 p-2 text-lg border mx-auto;
+
+  @screen md {
+    @apply w-7/12;
+  }
 }
