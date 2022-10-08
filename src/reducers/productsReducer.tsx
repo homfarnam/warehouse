@@ -3,13 +3,13 @@ import { ProductsType } from "../types/api.types"
 export type ReducerStateType = {
   products: ProductsType[] | []
   loading: boolean
-  error?: string | null
+  error: string
 }
 
 export const productsInitialState: ReducerStateType = {
   products: [],
   loading: false,
-  error: null,
+  error: "",
 }
 
 export type ReducerActionType =
