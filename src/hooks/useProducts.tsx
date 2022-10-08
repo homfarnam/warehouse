@@ -11,16 +11,12 @@ const useProducts = () => {
   const { allProducts, setAllProducts } = useContext(WarehouseContext)
 
   const [
-    { products, loading: productsLoading, error: _productsError },
+    { products, loading: productsLoading, error: productsError },
     productDispatch,
   ] = useReducer(productsReducer, {
     ...productsInitialState,
     products: allProducts,
   })
-
-  const refetchRequest = async (err: AxiosError) => {
-    warehouseAPI(err.config)
-  }
 
   const getProducts = async () => {
     productDispatch({ type: "request" })
@@ -31,35 +27,10 @@ const useProducts = () => {
         results: data,
       })
     } catch (err) {
-      console.log(typeof err)
-      productDispatch({ type: "request" })
-
-      if (axios.isAxiosError(err)) {
-        productDispatch({ type: "failure", error: err.message })
-        console.log(err)
-        const error = err
-        toast.error(
-          () => (
-            <div>
-              <p>{error.message}</p>
-              <button
-                onClick={() => refetchRequest(error)}
-                className="p-2 text-lg text-center bg-red-400 rounded-lg"
-              >
-                Try again
-              </button>
-            </div>
-          ),
-          {
-            pauseOnHover: true,
-          }
-        )
-      }
+      const error = err as AxiosError
+      console.log("error: ", error.message)
+      productDispatch({ type: "failure", error: error.message })
     }
-  }
-
-  const productRequest = () => {
-    getProducts()
   }
 
   useEffect(() => {
@@ -77,7 +48,8 @@ const useProducts = () => {
   return {
     products,
     productsLoading,
-    productRequest,
+    getProducts,
+    productsError,
   }
 }
 
