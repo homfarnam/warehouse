@@ -1,11 +1,13 @@
 import axios, { AxiosError } from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { ArticlesApi, warehouseAPI } from "../api"
+import { WarehouseContext } from "../context/context"
 import { ArticlesType } from "../types/api.types"
 
 const useArticle = (articleId: string) => {
-  const [article, setArticle] = useState<ArticlesType>()
+  const { allArticles, setAllArticles } = useContext(WarehouseContext)
+
   const [articleError, setArticleError] = useState<string>("")
   const [articleLoading, setArticleLoading] = useState<boolean>(false)
 
@@ -17,7 +19,11 @@ const useArticle = (articleId: string) => {
     setArticleLoading(true)
     try {
       const newData = await ArticlesApi.getOneArticle(id)
-      setArticle(newData as ArticlesType)
+
+      setAllArticles((prev) => ({
+        ...prev,
+        [id]: newData as ArticlesType,
+      }))
       setArticleLoading(false)
     } catch (err) {
       console.log(err)
@@ -46,12 +52,12 @@ const useArticle = (articleId: string) => {
   }
 
   useEffect(() => {
-    if (articleId) {
+    if (articleId && !allArticles[articleId]) {
       getArticle(articleId)
     }
   }, [articleId])
 
-  return { article, articleError, articleLoading }
+  return { article: allArticles[articleId], articleError, articleLoading }
 }
 
 export default useArticle
