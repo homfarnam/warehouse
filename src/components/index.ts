@@ -1,5 +1,4 @@
 import ArticleData from "./ArticleData/ArticleData"
-import ErrorDisplay from "./Shared/ErrorDisplay/ErrorDisplay"
 import Layout from "./Shared/Layout/Layout"
 import ProductData from "./ProductData/ProductData"
 import ProductDetail from "./ProductDetail/ProductDetail"
@@ -11,7 +10,6 @@ import SelectInput from "./Shared/SelectInput/SelectInput"
 
 export {
   ArticleData,
-  ErrorDisplay,
   Layout,
   ProductData,
   ProductDetail,
