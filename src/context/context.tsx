@@ -1,75 +1,78 @@
-import React, { createContext, useEffect, useState } from "react"
-import { useProducts } from "../hooks"
+import React, { createContext, useState } from "react"
 import { ArticlesType, ProductsType } from "../types/api.types"
 
-type CartType = {
+export type CartType = {
   data: ProductsType
   amount: number
 }
 
 interface ContextType {
   cart: CartType[]
-  products: ProductsType[]
   saveToCart: (data: CartType) => void
-  productsLoading: boolean
+  removeCartItem: (id: string) => void
+  setAllProducts: React.Dispatch<React.SetStateAction<ProductsType[]>>
+  allProducts: ProductsType[]
+  allArticles: Record<string, ArticlesType>
+  setAllArticles: React.Dispatch<
+    React.SetStateAction<Record<string, ArticlesType>>
+  >
 }
 
 const initialState = {
   cart: [],
-  products: [],
   saveToCart: () => {},
-  productsLoading: false,
+  removeCartItem: () => {},
+  setAllProducts: () => {},
+  allProducts: [],
+  allArticles: {},
+  setAllArticles: () => {},
 }
 
 export const WarehouseContext = createContext<ContextType>(initialState)
 
 const WareHouseProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartType[]>([])
-  const { products, productsLoading, productRequest } = useProducts()
+  const [allProducts, setAllProducts] = useState<ProductsType[]>([])
+  const [allArticles, setAllArticles] = useState<Record<string, ArticlesType>>(
+    {}
+  )
 
-  const saveToCart = (data: CartType) => {
-    // check if product is already in local storage and update amount
-    const productInCart = localStorage.getItem("cart")
-    if (productInCart) {
-      const parsedCart = JSON.parse(productInCart)
-      const product = parsedCart.find(
-        (item: CartType) => item.data.id === data.data.id
-      )
-      if (product) {
-        const updatedCart = parsedCart.map((item: CartType) => {
-          if (item.data.id === data.data.id) {
+  const saveToCart = (cartItem: CartType) => {
+    const isProductExist = cart.find(
+      (item) => item.data.id === cartItem.data.id
+    )
+
+    const updatedCart = isProductExist
+      ? cart.map((item: CartType) => {
+          if (item.data.id === cartItem.data.id) {
             return {
               ...item,
-              amount: item.amount + data.amount,
+              amount: item.amount + cartItem.amount,
             }
           }
           return item
         })
-        setCart(updatedCart)
-        localStorage.setItem("cart", JSON.stringify(updatedCart))
-      } else {
-        localStorage.setItem("cart", JSON.stringify([...parsedCart, data]))
-      }
-    } else {
-      localStorage.setItem("cart", JSON.stringify([...cart, data]))
-    }
+      : [...cart, cartItem]
+
+    setCart(updatedCart)
   }
 
-  useEffect(() => {
-    if (localStorage.getItem("cart")) {
-      const data = localStorage.getItem("cart")
-      const localData = JSON.parse(data as string)
-      setCart(localData as CartType[])
-    }
-  }, [])
-
-  useEffect(() => {
-    console.log({ cart })
-  }, [cart])
+  const removeCartItem = (id: string) => {
+    const updatedCart = cart.filter((item) => item.data.id !== id)
+    setCart(updatedCart)
+  }
 
   return (
     <WarehouseContext.Provider
-      value={{ products, cart, saveToCart, productsLoading }}
+      value={{
+        cart,
+        saveToCart,
+        removeCartItem,
+        setAllProducts,
+        allProducts,
+        allArticles,
+        setAllArticles,
+      }}
     >
       {children}
     </WarehouseContext.Provider>
