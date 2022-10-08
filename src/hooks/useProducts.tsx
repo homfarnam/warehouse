@@ -1,16 +1,22 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios"
-import { useEffect, useReducer, useRef } from "react"
+import { useContext, useEffect, useReducer, useRef } from "react"
 import { toast } from "react-toastify"
 import { ProductApi, warehouseAPI } from "../api"
+import { WarehouseContext } from "../context/context"
 import { productsReducer } from "../reducers"
 import { productsInitialState } from "../reducers/productsReducer"
 import { ProductsType } from "../types/api.types"
 
-const useProducts = (loadOnStart = true) => {
+const useProducts = () => {
+  const { allProducts, setAllProducts } = useContext(WarehouseContext)
+
   const [
     { products, loading: productsLoading, error: _productsError },
     productDispatch,
-  ] = useReducer(productsReducer, productsInitialState)
+  ] = useReducer(productsReducer, {
+    ...productsInitialState,
+    products: allProducts,
+  })
 
   const refetchRequest = async (err: AxiosError) => {
     warehouseAPI(err.config)
@@ -57,7 +63,13 @@ const useProducts = (loadOnStart = true) => {
   }
 
   useEffect(() => {
-    if (loadOnStart) {
+    if (allProducts.length === 0 && products.length > 0) {
+      setAllProducts(products)
+    }
+  }, [products])
+
+  useEffect(() => {
+    if (!allProducts || allProducts.length === 0) {
       getProducts()
     }
   }, [])
