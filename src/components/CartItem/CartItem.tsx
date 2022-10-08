@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { toast } from "react-toastify"
 import { SalesApi } from "../../api"
 import { CartType, WarehouseContext } from "../../context/context"
@@ -8,15 +8,21 @@ interface CartItemProps {
   cart: CartType
 }
 
+type CartDataType = {
+  productId: string
+  amountSold: number
+}
+
 const CartItem = ({ cart }: CartItemProps) => {
+  const [cartData, setCartData] = useState<CartDataType>({
+    productId: cart.data.id,
+    amountSold: +cart.amount,
+  })
   const { removeCartItem } = useContext(WarehouseContext)
 
-  const registerSale = async (id: string) => {
+  const registerSale = async () => {
     try {
-      const response = await SalesApi.postSale({
-        productId: id,
-        amountSold: +cart.amount,
-      })
+      const response = await SalesApi.postSale(cartData)
       console.log(response)
       toast.success("Sale registered successfully")
     } catch (error) {
@@ -31,7 +37,12 @@ const CartItem = ({ cart }: CartItemProps) => {
         <div className="cartItem__container__details">
           <p>{cart.data.name}</p>
 
-          <SelectInput value={+cart.amount} />
+          <SelectInput
+            initialValue={cart.amount}
+            getSelectValue={(val) => {
+              setCartData((prev) => ({ ...prev, amountSold: +val }))
+            }}
+          />
         </div>
 
         <div className="cartItem__container__buttonsBox">
@@ -39,9 +50,7 @@ const CartItem = ({ cart }: CartItemProps) => {
             <button onClick={() => removeCartItem(cart.data.id)}>Remove</button>
           </div>
           <div className="cartItem__container__buttonsBox--register">
-            <button onClick={() => registerSale(cart.data.id)}>
-              Register Sale
-            </button>
+            <button onClick={() => registerSale()}>Register Sale</button>
           </div>
         </div>
       </div>
