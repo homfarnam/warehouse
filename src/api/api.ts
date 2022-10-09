@@ -1,5 +1,4 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios"
-import { toast } from "react-toastify"
 
 const warehouseAPI: AxiosInstance = axios.create({
   baseURL: "http://localhost:8000",
@@ -26,7 +25,6 @@ warehouseAPI.interceptors.response.use(undefined, (err) => {
   if (!config || !config.retry) {
     return Promise.reject(err)
   }
-
   config.retry -= 1
   const delayRetryRequest = new Promise<void>((resolve) => {
     setTimeout(() => {
