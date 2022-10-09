@@ -1,7 +1,6 @@
-import axios, { AxiosError } from "axios"
+import { AxiosError } from "axios"
 import { useContext, useEffect, useState } from "react"
-import { toast } from "react-toastify"
-import { ArticlesApi, warehouseAPI } from "../api"
+import { ArticlesApi } from "../api"
 import { WarehouseContext } from "../context/context"
 import { ArticlesType } from "../types/api.types"
 
@@ -11,43 +10,22 @@ const useArticle = (articleId: string) => {
   const [articleError, setArticleError] = useState<string>("")
   const [articleLoading, setArticleLoading] = useState<boolean>(false)
 
-  const refetchRequest = async (err: AxiosError) => {
-    warehouseAPI(err.config)
-  }
-
   const getArticle = async (id: string) => {
     setArticleLoading(true)
     try {
-      const newData = await ArticlesApi.getOneArticle(id)
+      const response = await ArticlesApi.getOneArticle(id)
 
       setAllArticles((prev) => ({
         ...prev,
-        [id]: newData as ArticlesType,
+        [id]: response as ArticlesType,
       }))
+
       setArticleLoading(false)
     } catch (err) {
+      const error = err as AxiosError
       console.log(err)
-      if (axios.isAxiosError(err)) {
-        setArticleError(err.message)
-        setArticleLoading(false)
-        const error = err
-        toast.error(
-          () => (
-            <div>
-              <p>{error.message}</p>
-              <button
-                onClick={() => refetchRequest(error)}
-                className="p-2 text-lg text-center bg-red-400 rounded-lg"
-              >
-                Try again
-              </button>
-            </div>
-          ),
-          {
-            pauseOnHover: true,
-          }
-        )
-      }
+      setArticleError(error.message)
+      setArticleLoading(false)
     }
   }
 
@@ -57,7 +35,11 @@ const useArticle = (articleId: string) => {
     }
   }, [articleId])
 
-  return { article: allArticles[articleId], articleError, articleLoading }
+  return {
+    article: allArticles[articleId],
+    articleError,
+    articleLoading,
+  }
 }
 
 export default useArticle
