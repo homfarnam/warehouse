@@ -5,7 +5,9 @@
 This app is a project that it's working with a warehouse API that it provided by a Node js local server with some data.
 The main goal of the frontend is to list the available products and quantities, and the articles in each product. The user should be able to register a sale, and the inventory should be updated accordingly.
 
+###
 
+I wrote all the API's for the frontend even for those I didn't use them, I mentioned in tasks list down here about future options that can make this project better.
 
 
 ## Installation
