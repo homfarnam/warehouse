@@ -1,14 +1,40 @@
 import React from "react"
 import { cleanup, renderHook, waitFor } from "@testing-library/react"
 import useProducts from "./useProducts"
-import mockData from "../mockData/mock.json"
-import { act } from "react-dom/test-utils"
-import { ProductApi, warehouseAPI } from "../api"
-import MockAdapter from "axios-mock-adapter"
-import App from "../App"
-import { BrowserRouter } from "react-router-dom"
+import mockData from "../mockData/products.mock.json"
+import { ProductApi } from "../api"
 
 jest.mock("../api/products.ts")
+
+jest.mock("axios", () => {
+  const originalModule = jest.requireActual("axios")
+  return {
+    ...originalModule,
+    create: () => {
+      return {
+        ...originalModule,
+        interceptors: {
+          response: {
+            use: jest.fn(),
+          },
+        },
+      }
+    },
+    interceptors: {
+      request: { use: jest.fn(), eject: jest.fn() },
+      response: {
+        use: jest.fn().mockImplementation((success, error) => {
+          error({
+            config: {
+              url: "http://localhost:3000/api/products",
+            },
+          })
+        }),
+        eject: jest.fn(),
+      },
+    },
+  }
+})
 
 export const waitForNextUpdate = async () => {
   return new Promise<void>((resolve, _reject) => {
@@ -37,7 +63,7 @@ describe("UseProducts Tests", () => {
       return Promise.resolve(mockData.data)
     })
 
-    const { result, rerender } = renderHook(() => useProducts())
+    const { result } = renderHook(() => useProducts())
 
     await waitFor(() => {
       expect(result.current.products).toEqual(mockData.data)
