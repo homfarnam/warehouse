@@ -1,23 +1,8 @@
-import { toast } from "react-toastify"
 import { Layout, Loader, ProductDetail } from "../components"
 import { useProducts } from "../hooks"
 
 const Products = () => {
   const { products, productsLoading, productsError } = useProducts()
-
-  if (productsError) {
-    toast.error(
-      () => (
-        <div data-testid="error-toast">
-          <p>{productsError}</p>
-        </div>
-      ),
-      {
-        pauseOnHover: true,
-        autoClose: 5000,
-      }
-    )
-  }
 
   return (
     <Layout>
@@ -30,7 +15,11 @@ const Products = () => {
             <h3>You can find products data here.</h3>
           </div>
           <div className="products__mainContent">
-            {productsLoading ? (
+            {productsError && !productsLoading ? (
+              <div>
+                <p data-testid="error-test">{productsError}</p>
+              </div>
+            ) : productsLoading ? (
               <Loader loading={productsLoading} size={20} />
             ) : (
               products.length > 0 &&
