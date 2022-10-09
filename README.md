@@ -76,12 +76,21 @@ yarn test
 **Tests:** React testing library, Jest
 
 
-### Tests
+## Tests
 
 For the unit tests, I used react testing library and jest to test some components and hooks and api to make sure that the app is working correctly and there is no issues with that.
 I used jest to mock axios and my custom axios interceptor that it customized for this specific project that it can handle a unreliable API.
 
 
 
+## Tasks list
+
+Some more options could make this app better but I had no time for that, I can make them in the future.
+
+- [ ] Create different forms to create a product, article and sales
+- [ ] Create pages for one product, one article, one sale
+- [ ] Enable editing products, articles and sales data with a form and update them
+- [ ] Make a comparision between current data and API data to change current data with new one (if new one exist)
+ 
 
 
