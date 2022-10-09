@@ -1,7 +1,6 @@
-import axios, { AxiosError } from "axios"
+import { AxiosError } from "axios"
 import { useEffect, useReducer, useRef } from "react"
-import { toast } from "react-toastify"
-import { SalesApi, warehouseAPI } from "../api"
+import { SalesApi } from "../api"
 import { salesReducer } from "../reducers"
 import { salesInitialState } from "../reducers/salesReducer"
 import { SalesType } from "../types/api.types"
@@ -11,10 +10,6 @@ const useSales = () => {
     salesReducer,
     salesInitialState
   )
-
-  const refetchRequest = async (err: AxiosError) => {
-    warehouseAPI(err.config)
-  }
 
   const getSales = async () => {
     salesDispatch({ type: "request" })
@@ -27,27 +22,9 @@ const useSales = () => {
     } catch (err) {
       salesDispatch({ type: "request" })
 
-      if (axios.isAxiosError(err)) {
-        salesDispatch({ type: "failure", error: err.message })
-        console.log(err)
-        const error = err
-        toast.error(
-          () => (
-            <div>
-              <p>{error.message}</p>
-              <button
-                onClick={() => refetchRequest(error)}
-                className="p-2 text-lg text-center bg-red-400 rounded-lg"
-              >
-                Try again
-              </button>
-            </div>
-          ),
-          {
-            pauseOnHover: true,
-          }
-        )
-      }
+      const error = err as AxiosError
+      salesDispatch({ type: "failure", error: error.message })
+      console.log(err)
     }
   }
 
@@ -58,6 +35,7 @@ const useSales = () => {
   return {
     sales,
     loading,
+    error,
   }
 }
 
