@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react"
 import { BrowserRouter } from "react-router-dom"
 import MockAdapter from "axios-mock-adapter"
-import mockData from "../../mockData/mock.json"
+import mockData from "../../mockData/products.mock.json"
 import { act } from "react-dom/test-utils"
 import ProductDetail from "./ProductDetail"
 import { useProducts } from "../../hooks"
