@@ -1,22 +1,87 @@
-# cra-template-tailwindcss-typescript
+#  WareHouse Front-end
 
-A streamlined [Tailwind CSS v3.1](https://tailwindcss.com) template for [Create React App](https://github.com/facebook/create-react-app) in [TypeScript](https://www.typescriptlang.org/).
 
-> This template installs and sets up [Tailwind CSS](https://tailwindcss.com) with TypeScript support.
+ 
+This app is a project that it's working with a warehouse API that it provided by a Node js local server with some data.
+The main goal of the frontend is to list the available products and quantities, and the articles in each product. The user should be able to register a sale, and the inventory should be updated accordingly.
 
-## Usage
+
+
+
+## Installation
+You can install the dependencies with these commands.
+
+npm:
 
 ```bash
-npx create-react-app --template tailwindcss-typescript
+npm install
 ```
 
-## Credits
+yarn:
 
-This project was made possible thanks to the following projects.
+```bash
+yarn
+```
 
-1. [GeoffSelby/cra-template-tailwindcss](https://github.com/GeoffSelby/cra-template-tailwindcss) - A streamlined Tailwind CSS template for Create React App (in JavaScript).
-2. [cra-template-typescript](https://github.com/facebook/create-react-app/tree/master/packages/cra-template-typescript) - An official TypeScript template for create-react-app.
+## Deployment
 
-## License
+To Start this project run
 
-MIT © [Sung M. Kim](https://sung.codes)
+npm:
+
+```bash
+npm run start
+```
+
+yarn:
+
+```bash
+yarn start
+```
+
+To build the project run:
+
+npm:
+
+```bash
+npm run build
+```
+
+yarn:
+
+```bash
+yarn build
+```
+
+## Testing
+
+To test the project run:
+
+npm:
+
+```bash
+npm run test
+```
+
+yarn:
+
+```bash
+yarn test
+```
+ 
+## Tech Stack
+
+**Client:** React, Typescript, SCSS, TailwindCSS
+
+**Tests:** React testing library, Jest
+
+
+### Tests
+
+For the unit tests, I used react testing library and jest to test some components and hooks and api to make sure that the app is working correctly and there is no issues with that.
+I used jest to mock axios and my custom axios interceptor that it customized for this specific project that it can handle a unreliable API.
+
+
+
+
+
