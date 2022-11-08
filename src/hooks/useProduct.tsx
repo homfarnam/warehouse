@@ -1,17 +1,12 @@
-import axios, { AxiosError } from "axios"
+import axios from "axios"
 import { useEffect, useState } from "react"
-import { toast } from "react-toastify"
-import { ProductApi, warehouseAPI } from "../api"
+import { ProductApi } from "../api"
 import { ProductsType } from "../types/api.types"
 
 const useProduct = (productID: string) => {
   const [product, setProduct] = useState<ProductsType>()
   const [productError, setProductError] = useState<string>("")
   const [productLoading, setProductLoading] = useState<boolean>(false)
-
-  const refetchRequest = async (err: AxiosError) => {
-    warehouseAPI(err.config)
-  }
 
   const getProduct = async (id: string) => {
     setProductLoading(true)
@@ -24,23 +19,6 @@ const useProduct = (productID: string) => {
       if (axios.isAxiosError(err)) {
         setProductError(err.message)
         setProductLoading(false)
-        const error = err
-        toast.error(
-          () => (
-            <div>
-              <p>{error.message}</p>
-              <button
-                onClick={() => refetchRequest(error)}
-                className="p-2 text-lg text-center bg-red-400 rounded-lg"
-              >
-                Try again
-              </button>
-            </div>
-          ),
-          {
-            pauseOnHover: true,
-          }
-        )
       }
     }
   }
