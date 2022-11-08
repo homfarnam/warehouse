@@ -1,0 +1,21 @@
+{
+  "name": "warehouse-api",
+  "version": "1.0.0",
+  "description": "Warehouse API",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "lodash": "^4.17.20",
+    "luxon": "^1.25.0",
+    "morgan": "~1.9.1",
+    "sqlite3": "^5.0.0",
+    "uuid": "^8.3.1"
+  }
+}

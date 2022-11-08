@@ -1,0 +1,331 @@
+{
+  "info": {
+    "_postman_id": "e34e85e2-29d2-45ff-b76d-90962e4ca1dc",
+    "name": "Warehouse API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Articles",
+      "item": [
+        {
+          "name": "List Articles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/articles/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["articles", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Article",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Article\",\n    \"amountInStock\": 10\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/articles/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["articles", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Article",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/articles/ARTICLE_ID_HERE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["articles", "ARTICLE_ID_HERE"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch Article",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Patched Article\",\n    \"amountInStock\": 100\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/articles/ARTICLE_ID_HERE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["articles", "ARTICLE_ID_HERE"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Article",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/articles/ARTICLE_ID_HERE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["articles", "ARTICLE_ID_HERE"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bulk Patch Articles",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n    {\n        \"id\": \"ARTICLE_ID_HERE\",\n        \"amountInStock\": 10\n    },\n    {\n        \"id\": \"ANOTHER_ARTICLE_ID_HERE\",\n        \"amountToSubtract\": 2\n    }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/articles/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["articles", ""]
+            }
+          },
+          "response": []
+        }
+      ],
+      "protocolProfileBehavior": {}
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/products/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["products", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Product",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Product\",\n    \"articles\": [\n        {\n            \"id\": \"ARTICLE_ID_HERE\",\n            \"amountRequired\": 10\n        },\n        {\n            \"id\": \"ANOTHER_ARTICLE_ID_HERE\",\n            \"amountRequired\": 20\n        }\n    ]\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/products/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["products", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/products/PRODUCT_ID_HERE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["products", "PRODUCT_ID_HERE"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch Product",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Patched Product\",\n    \"articles\": [\n        {\n            \"id\": \"NEW_ARTICLE_ID_HERE\",\n            \"amountRequired\": 30\n        }\n    ]\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/products/PRODUCT_ID_HERE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["products", "PRODUCT_ID_HERE"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/products/PRODUCT_ID_HERE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["products", "PRODUCT_ID_HERE"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "protocolProfileBehavior": {}
+    },
+    {
+      "name": "Sales",
+      "item": [
+        {
+          "name": "List Sales",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/sales/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["sales", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Sale",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"productId\": \"PRODUCT_ID_HERE\",\n    \"amountSold\": 10\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/sales/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["sales", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Sale",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/sales/SALE_ID_HERE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["sales", "SALE_ID_HERE"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch Sale",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"amountSold\": 100\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/sales/SALE_ID_HERE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["sales", "SALE_ID_HERE"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Sale",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/sales/SALE_ID_HERE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["sales", "SALE_ID_HERE"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "protocolProfileBehavior": {}
+    }
+  ],
+  "protocolProfileBehavior": {}
+}
