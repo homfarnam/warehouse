@@ -26,7 +26,7 @@ jest.mock("axios", () => {
         use: jest.fn().mockImplementation((success, error) => {
           error({
             config: {
-              url: "http://localhost:3000/api/articles",
+              url: "http://localhost:8000/api/articles",
             },
           })
         }),
