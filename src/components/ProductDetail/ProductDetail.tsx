@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { memo, useContext, useState } from "react"
 import type { ProductsType } from "../../types/api.types"
 import ArticleData from "../ArticleData/ArticleData"
 import { BsCartPlusFill } from "react-icons/bs"
@@ -8,7 +8,7 @@ interface ProductDetailProps {
   data: ProductsType
 }
 
-const ProductDetail = ({ data }: ProductDetailProps) => {
+const ProductDetail = memo(({ data }: ProductDetailProps) => {
   const [amount, setAmount] = useState<number>(1)
   const { saveToCart } = useContext(WarehouseContext)
 
@@ -47,6 +47,6 @@ const ProductDetail = ({ data }: ProductDetailProps) => {
         data.articles.map((item) => <ArticleData key={item.id} id={item.id} />)}
     </div>
   )
-}
+})
 
 export default ProductDetail

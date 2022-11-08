@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { useArticle } from "../../hooks"
 import Loader from "../Shared/Loader/Loader"
 
@@ -5,7 +6,7 @@ interface ArticleDataProps {
   id: string
 }
 
-const ArticleData = ({ id }: ArticleDataProps) => {
+const ArticleData = memo(({ id }: ArticleDataProps) => {
   const { article, articleLoading } = useArticle(id)
 
   return (
@@ -25,6 +26,6 @@ const ArticleData = ({ id }: ArticleDataProps) => {
       )}
     </div>
   )
-}
+})
 
 export default ArticleData
